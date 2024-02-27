@@ -1,3 +1,3 @@
-export { MainPage } from './src/main/ets/components/mainpage/MainPage'
+export { hexToRgb } from './src/main/ets/utils/index'
 
-export const a = 1;
+export { Head } from './src/main/ets/components/head'

@@ -1,6 +1,5 @@
 import router from '@ohos.router';
-import Want from '@ohos.app.ability.Want';
-import common from '@ohos.app.ability.common';
+
 
 interface RouteItem {
   name: string;
@@ -27,15 +26,6 @@ struct Index {
   scroller: Scroller = new Scroller()
   @State data: RouteItem[] = [{ name: '滚动', routeName: 'pages/scroll' }]
   @State message: string = 'Hello World六点十分科技';
-  private context = getContext(this) as common.UIAbilityContext;
-
-  startAbilityTest() {
-    let context = getContext(this) as common.UIAbilityContext;
-    let want: Want = {
-      // Want参数信息
-    };
-    context.startAbility(want);
-  }
 
   build() {
     Scroll(this.scroller) {
@@ -53,7 +43,7 @@ struct Index {
           Text('sdf').fontSize(20)
         }.spacious2()
         .backgroundColor('red')
-      }.height('100%')
+      }.height('100%').backgroundColor('red')
     }
     .scrollable(ScrollDirection.Vertical)
     .scrollBar(BarState.Auto)

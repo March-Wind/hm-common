@@ -1,6 +1,7 @@
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { aContext } from '../entryability/abilityContext';
-import Head from '../../../component/scroll/head';
+import { Head } from 'common';
+
 
 interface Item {
   index: number;
@@ -14,6 +15,7 @@ struct IScroll {
   @State data: Item[] = [{ index: 1 }, { index: 2 }, { index: 3 }, { index: 4 }, { index: 5 }, { index: 6 }, {
     index: 7
   }, { index: 8 }, { index: 9 }]
+  @State statusBarHeight: number = aContext.avoidArea?.topRect.height || 0
 
   async aboutToAppear(): Promise<void> {
     await aContext.mainWindowClass?.setWindowLayoutFullScreen(true)
@@ -38,16 +40,33 @@ struct IScroll {
     Column() {
       // Column() {
       //
+      //   Head2()
+      //   Column() {
+      //
+      //   }.backgroundColor('green')
+      //   .width(120)
+      //   .height(120)
       // }
-      // .position({
-      //   x: 0,
-      //   y: 0
-      // })
-      // .width('100%')
-      // .height(44)
-      // .backgroundColor(`rgba(23,114,246,${this.alpha})`)
-      // .zIndex(1)
-      Head({ mainWindowClass: aContext.mainWindowClass, isFullScreen: true, alpha: this.alpha })
+
+      Head({
+        isFullScreen: true,
+        bg: '#1772f6',
+        navBg: '#FF4444',
+        statusBarHeight: this.statusBarHeight
+      })
+      // Head()
+      // Scroll() {
+      //   Column() {
+      //
+      //   }.backgroundColor('green')
+      //   .width(120)
+      //   .height(1020)
+      //
+      //   // .position({ x: 0, y: 0 })
+      // }.width('100%')
+      // .height('100%')
+
+
       Scroll(this.scroller) {
         Column() {
           ForEach(this.data, (item: Item) => {
@@ -71,8 +90,8 @@ struct IScroll {
       .onScroll((xOffset, yOffset) => { // 这里好像是单个距离上次位置的偏移
         const offset = this.scroller.currentOffset()
         hilog.info(0x0000, 'yOffset', offset.yOffset + ':' + yOffset)
-        if (offset.yOffset <= 100) {
-          this.alpha = offset.yOffset / 100
+        if (offset.yOffset <= 200) {
+          this.alpha = offset.yOffset / 200
         } else if (this.alpha !== 1) {
           this.alpha = 1
         }
